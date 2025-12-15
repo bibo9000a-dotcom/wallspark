@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WallSpark - تحميل خلفيات 4K مجانية وعالية الدقة</title>
+    <meta name="description" content="اكتشف وحمل آلاف الخلفيات الفاخرة والمميزة لهاتفك وحاسوبك مجاناً على WallSpark.">
+    <meta name="keywords" content="خلفيات، wallpapers, 4k, خلفيات موبايل، صور طبيعة، WallSpark">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="WallSpark - عالم الخلفيات الفاخرة">
+    <meta property="og:description" content="أفضل منصة لتحميل الخلفيات عالية الجودة لجميع أجهزتك.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1477346611705-65d1883cee1e?auto=format&fit=crop&w=1200&h=630&q=80">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .wallpaper-card:hover .overlay {
+            opacity: 1;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+        .masonry {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+        @media (min-width: 640px) { .masonry { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry { column-count: 3; } }
+        @media (min-width: 1280px) { .masonry { column-count: 4; } }
+        
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="custom-scrollbar">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+                <i class="fas fa-layer-group text-white text-xl"></i>
+            </div>
+            <span class="text-2xl font-bold tracking-tight">Wall<span class="gradient-text">Spark</span></span>
+        </div>
+        <div class="hidden md:flex gap-8 text-sm font-medium">
+            <a href="#" class="hover:text-blue-400 transition">الرئيسية</a>
+            <a href="#" class="hover:text-blue-400 transition">الأكثر رواجاً</a>
+            <a href="#" class="hover:text-blue-400 transition">المجموعات</a>
+            <a href="#" class="hover:text-blue-400 transition">عن التطبيق</a>
+        </div>
+        <button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-600/30">
+            تسجيل الدخول
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-16 px-6 text-center">
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+            حول شاشتك إلى <span class="gradient-text">لوحة فنية</span>
+        </h1>
+        <p class="text-gray-400 max-w-2xl mx-auto mb-10 text-lg">
+            اكتشف آلاف الخلفيات عالية الدقة المختارة بعناية لتناسب ذوقك الرفيع. من الطبيعة الخلابة إلى الفن التجريدي المعاصر.
+        </p>
+        
+        <!-- Search Bar -->
+        <div class="max-w-3xl mx-auto relative group">
+            <input type="text" id="searchInput" placeholder="ابحث عن خلفية (مثلاً: جبال، فضاء، سيارات...)" 
+                   class="w-full bg-slate-800/50 border border-slate-700 py-4 px-6 pr-14 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-lg glass">
+            <i class="fas fa-search absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-400 transition-colors"></i>
+            <button id="searchBtn" class="absolute left-3 top-1/2 -translate-y-1/2 bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-xl font-bold transition">بحث</button>
+        </div>
+
+        <!-- Categories -->
+        <div class="categories-container flex flex-wrap justify-center gap-3 mt-8">
+            <button onclick="filterWallpapers('Nature')" class="px-5 py-2 rounded-full glass border-slate-700 hover:bg-blue-600 hover:border-blue-600 transition text-sm">طبيعة</button>
+            <button onclick="filterWallpapers('Abstract')" class="px-5 py-2 rounded-full glass border-slate-700 hover:bg-blue-600 hover:border-blue-600 transition text-sm">تجريدي</button>
+            <button onclick="filterWallpapers('Minimal')" class="px-5 py-2 rounded-full glass border-slate-700 hover:bg-blue-600 hover:border-blue-600 transition text-sm">بسيط</button>
+            <button onclick="filterWallpapers('Technology')" class="px-5 py-2 rounded-full glass border-slate-700 hover:bg-blue-600 hover:border-blue-600 transition text-sm">تقنية</button>
+            <button onclick="filterWallpapers('Cars')" class="px-5 py-2 rounded-full glass border-slate-700 hover:bg-blue-600 hover:border-blue-600 transition text-sm">سيارات</button>
+            <button onclick="filterWallpapers('Space')" class="px-5 py-2 rounded-full glass border-slate-700 hover:bg-blue-600 hover:border-blue-600 transition text-sm">فضاء</button>
+        </div>
+    </section>
+
+    <!-- Content Grid -->
+    <main class="max-w-7xl mx-auto px-6 pb-20">
+        <div id="wallpaperGrid" class="masonry">
+            <!-- Wallpapers will be injected here -->
+        </div>
+
+        <div id="loader" class="flex justify-center py-10 hidden">
+            <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
+        
+        <div class="text-center mt-12">
+            <button id="loadMore" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 px-8 py-3 rounded-xl font-bold transition-all">تحميل المزيد</button>
+        </div>
+    </main>
+
+    <!-- Back to top -->
+    <button id="scrollTop" class="fixed bottom-8 left-8 w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white shadow-xl opacity-0 translate-y-10 transition-all duration-300 z-40 hover:bg-blue-700">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-12 px-6 bg-slate-900/50">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div>
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-layer-group text-white text-sm"></i>
+                    </div>
+                    <span class="text-xl font-bold">WallSpark</span>
+                </div>
+                <p class="text-gray-500 text-sm max-w-xs">أفضل منصة لتحميل الخلفيات عالية الجودة لجميع أجهزتك.</p>
+            </div>
+            <div class="flex gap-6 text-gray-400">
+                <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-twitter text-xl"></i></a>
+                <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-pinterest text-xl"></i></a>
+                <a href="#" class="hover:text-blue-400 transition"><i class="fab fa-github text-xl"></i></a>
+            </div>
+            <p class="text-gray-500 text-sm">© 2023 WallSpark. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <!-- Preview Modal -->
+    <div id="previewModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 md:p-8">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-md" onclick="closeModal()"></div>
+        <div class="relative max-w-5xl w-full h-full max-h-[90vh] flex flex-col items-center justify-center glass rounded-3xl overflow-hidden animate-scale-in">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-2xl hover:text-red-500 transition-colors z-10">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="relative w-full h-full flex flex-col">
+                <div class="flex-grow flex items-center justify-center overflow-hidden bg-black/20">
+                    <img id="modalImage" src="" alt="Wallpaper Preview" class="max-h-full max-w-full object-contain">
+                </div>
+                <div class="p-6 bg-slate-900 flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                        <h3 id="modalTitle" class="text-xl font-bold mb-1">عنوان الخلفية</h3>
+                        <p id="modalAuthor" class="text-gray-400 text-sm">بواسطة: مصور مجهول</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <button class="bg-slate-800 hover:bg-slate-700 p-4 rounded-xl transition">
+                            <i class="far fa-heart text-xl"></i>
+                        </button>
+                        <a id="downloadBtn" href="#" target="_blank" download onclick="showNotification('تم بدء التحميل بنجاح')" class="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-xl font-bold transition flex items-center gap-2">
+                            <i class="fas fa-download"></i>
+                            تحميل مجاني
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const grid = document.getElementById('wallpaperGrid');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const loadMoreBtn = document.getElementById('loadMore');
+        const loader = document.getElementById('loader');
+        
+        const previewModal = document.getElementById('previewModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalAuthor = document.getElementById('modalAuthor');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        let currentPage = 1;
+        let currentQuery = 'nature landscape';
+
+        // Mock categories mapping for Unsplash
+        const categories = {
+            'Nature': 'nature mountains forest',
+            'Abstract': 'abstract artistic colorful',
+            'Minimal': 'minimalist clean simple',
+            'Technology': 'technology coding hardware',
+            'Cars': 'luxury sports cars',
+            'Space': 'galaxy stars space universe'
+        };
+
+        async function fetchWallpapers(query, page = 1, append = false) {
+            loader.classList.remove('hidden');
+            if (!append) grid.innerHTML = '';
+            
+            try {
+                // Using Unsplash Source (via standard URL pattern since API key is required for official endpoint)
+                // For a real app, you'd use: https://api.unsplash.com/search/photos?query=${query}&page=${page}&client_id=YOUR_KEY
+                
+                // Demo purposes: generating a set of variations
+                const wallTypes = ['landscape', 'portrait', 'square'];
+                const items = [];
+                
+                for(let i = 0; i < 12; i++) {
+                    const id = Math.floor(Math.random() * 1000) + (page * 10);
+                    const width = 800;
+                    const height = [600, 1000, 1200, 800][Math.floor(Math.random() * 4)];
+                    
+                    items.push({
+                        id: id,
+                        title: `${query} Wallpaper ${id}`,
+                        author: `Unsplash Contributor`,
+                        url: `https://picsum.photos/seed/${id + query}/${width}/${height}`,
+                        download: `https://picsum.photos/seed/${id + query}/1920/1080`
+                    });
+                }
+                
+                renderWallpapers(items);
+            } catch (error) {
+                console.error('Error fetching wallpapers:', error);
+            } finally {
+                loader.classList.add('hidden');
+            }
+        }
+
+        function renderWallpapers(items) {
+            items.forEach(item => {
+                const wallItem = document.createElement('div');
+                wallItem.className = 'masonry-item wallpaper-card relative group cursor-pointer overflow-hidden rounded-2xl';
+                wallItem.onclick = () => openModal(item);
+                
+                wallItem.innerHTML = `
+                    <img src="${item.url}" alt="${item.title}" class="w-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-opacity duration-300 flex flex-col justify-end p-6">
+                        <h3 class="text-white font-bold text-lg mb-1">${item.title}</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300 text-xs">${item.author}</span>
+                            <div class="flex gap-2">
+                                <button onclick="toggleFavorite(event)" class="w-8 h-8 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center hover:bg-white/40 transition">
+                                    <i class="far fa-heart text-white text-xs"></i>
+                                </button>
+                                <button onclick="event.stopPropagation(); showNotification('بدء التحميل...')" class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-500 transition shadow-lg shadow-blue-600/20">
+                                    <i class="fas fa-download text-white text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(wallItem);
+            });
+        }
+
+        function filterWallpapers(cat) {
+            // Update active state
+            document.querySelectorAll('.categories-container button').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'border-blue-600');
+                btn.classList.add('glass', 'border-slate-700');
+            });
+            event.currentTarget.classList.add('bg-blue-600', 'border-blue-600');
+            event.currentTarget.classList.remove('glass', 'border-slate-700');
+
+            currentQuery = categories[cat] || cat;
+            currentPage = 1;
+            fetchWallpapers(currentQuery, currentPage);
+        }
+
+        function openModal(item) {
+            modalImage.src = item.download;
+            modalTitle.innerText = item.title;
+            modalAuthor.innerText = `المصور: ${item.author}`;
+            downloadBtn.href = item.download;
+            
+            previewModal.classList.remove('hidden');
+            previewModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            previewModal.classList.add('hidden');
+            previewModal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+            modalImage.src = '';
+        }
+
+        searchBtn.addEventListener('click', () => {
+            if (searchInput.value.trim()) {
+                currentQuery = searchInput.value.trim();
+                currentPage = 1;
+                fetchWallpapers(currentQuery, currentPage);
+            }
+        });
+
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchBtn.click();
+        });
+
+        loadMoreBtn.addEventListener('click', () => {
+            currentPage++;
+            fetchWallpapers(currentQuery, currentPage, true);
+        });
+
+        // Scroll to Top Logic
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 400) {
+                scrollTopBtn.classList.remove('opacity-0', 'translate-y-10');
+                scrollTopBtn.classList.add('opacity-100', 'translate-y-0');
+            } else {
+                scrollTopBtn.classList.add('opacity-0', 'translate-y-10');
+                scrollTopBtn.classList.remove('opacity-100', 'translate-y-0');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Simple Notification helper
+        function showNotification(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-10 right-1/2 translate-x-1/2 bg-blue-600 text-white px-6 py-3 rounded-full shadow-2xl z-[1000] animate-bounce';
+            toast.innerHTML = `<i class="fas fa-check-circle ml-2"></i> ${message}`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Add to favorites logic (UI only)
+        function toggleFavorite(e) {
+            e.stopPropagation();
+            const icon = e.currentTarget.querySelector('i');
+            if (icon.classList.contains('far')) {
+                icon.classList.replace('far', 'fas');
+                icon.classList.add('text-red-500');
+                showNotification('تمت الإضافة للمفضلة');
+            } else {
+                icon.classList.replace('fas', 'far');
+                icon.classList.remove('text-red-500');
+                showNotification('تمت الإزالة من المفضلة');
+            }
+        }
+
+        // Initial Load
+        window.onload = () => {
+            fetchWallpapers('nature cinematic', 1);
+        };
+    </script>
+</body>
+</html>
